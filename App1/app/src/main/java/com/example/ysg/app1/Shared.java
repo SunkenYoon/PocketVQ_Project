@@ -1,4 +1,12 @@
 package com.example.ysg.app1;
 
-public class Shared {
+import android.app.Activity;
+import android.os.Bundle;
+
+public class Shared extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.shared);
+    }
 }
