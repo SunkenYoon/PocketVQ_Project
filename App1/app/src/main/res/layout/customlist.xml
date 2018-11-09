@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:padding="15dp"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="horizontal">
+
+
+<TextView
+    android:id="@+id/english"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:text="영어"
+    android:layout_weight="1"/>
+
+<TextView
+    android:id="@+id/korean"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_weight="1"
+    android:text="한글" />
+</LinearLayout>
