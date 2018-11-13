@@ -5,11 +5,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/hidebutton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="뜻 가리기" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/hidebutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="뜻 가리기" />
+
+        <Button
+            android:id="@+id/testbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="시험 보기" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listview"

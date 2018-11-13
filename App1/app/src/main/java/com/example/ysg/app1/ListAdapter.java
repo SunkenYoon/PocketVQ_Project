@@ -45,6 +45,9 @@ public class ListAdapter extends BaseAdapter{
         item.setKor(kor);
         listItemList.add(item);
     }
+    public void clear(){
+        listItemList.clear();
+    }
 
 
 

@@ -1,14 +1,13 @@
 package com.example.ysg.app1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Button;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -25,6 +24,7 @@ public class Vocab extends Activity {
         adapter1 = new ListAdapter();
         adapter2= new ListAdapter();
         final Button hidebutton = (Button)findViewById(R.id.hidebutton);
+        final Button testbutton = (Button)findViewById(R.id.testbutton);
         listview = (ListView) findViewById(R.id.listview);
         listview.setAdapter(adapter1);
         listview.setAdapter(adapter2);
@@ -49,10 +49,20 @@ public class Vocab extends Activity {
                 }
             }
         });
+        testbutton.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Test1.class);
+                startActivity(intent);
+
+
+            }
+        });
     }
     public void Excel() {
         Workbook workbook = null;
         Sheet sheet = null;
+        adapter1.clear();
         try {
             InputStream inputStream = getBaseContext().getResources().getAssets().open("first.xls");
             workbook = Workbook.getWorkbook(inputStream);
@@ -77,6 +87,7 @@ public class Vocab extends Activity {
     public void HExcel() {
         Workbook workbook = null;
         Sheet sheet = null;
+        adapter2.clear();
         try {
             InputStream inputStream = getBaseContext().getResources().getAssets().open("first.xls");
             workbook = Workbook.getWorkbook(inputStream);
