@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="15dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,7 @@
             android:layout_marginBottom="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="남은 시간:" />
 
         <TextView
             android:id="@+id/textView3"
@@ -31,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="초" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,16 +57,26 @@
         android:orientation="horizontal">
 
         <EditText
-            android:layout_width="244dp"
-            android:layout_height="50dp" />
+            android:id="@+id/useranswer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/switcher"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="2"
             android:layout_height="50dp"
             android:text="다음 문제!"
             android:textSize="20dp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/answer"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>
