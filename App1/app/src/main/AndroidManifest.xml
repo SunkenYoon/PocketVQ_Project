@@ -21,7 +21,8 @@
         <activity android:name=".Shared" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name=".Dic" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name=".Test1" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-
+        <activity android:name="Test2" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name="VocabList" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,36 +1,37 @@
 package com.example.ysg.app1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import android.os.Handler;
 import android.widget.Toast;
 
-import static android.graphics.Color.BLUE;
-import static android.graphics.Color.RED;
-
 public class Test1 extends Activity {
     int ran=0;
     int count=0;
     int correct=0;
     int timer_sec=0;
-    int check[] = new int[61];
-    String word[] = new String[61];
-    String mean[] = new String[61];
+    String day;
+    int check[] = new int[40];
+    String word[] = new String[40];
+    String mean[] = new String[40];
+    List<String> rword = new ArrayList<String>();
+    List<String> rmean = new ArrayList<String>();
     TimerTask second;
     TextView time;
     final Handler handler = new Handler();
@@ -41,12 +42,16 @@ public class Test1 extends Activity {
         final EditText useranswer = (EditText)findViewById(R.id.useranswer);
         final TextView answercount = (TextView)findViewById(R.id.answercount);
         final Button answer = (Button)findViewById(R.id.answer);
+        final Button retest = (Button)findViewById(R.id.retest);
         final Button switcher = (Button)findViewById(R.id.switcher);
         final TextView show = (TextView)findViewById(R.id.show);
+        retest.setEnabled(false);
+        Intent intent = getIntent();
+        day =intent.getStringExtra("day");
         Excel();
 
 
-        for(int j=0;j<61;j++){
+        for(int j=0;j<40;j++){
             check[j]=j;
         }
         answer.setOnClickListener(new Button.OnClickListener(){
@@ -61,8 +66,29 @@ public class Test1 extends Activity {
                      if(mean[ran].contains(useranswer.getText().toString())){
                          correct++;
                          answercount.setText(""+correct);
-                }
+                     }
+                     else
+                     {
+                         rword.add(word[ran]);
+                         rmean.add(mean[ran]);
+                     }
             }
+            }
+        });
+        retest.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Test2.class);
+                int length = rword.size();
+                String rrword[]=new String[length];
+                String rrmean[]=new String[length];
+                for(int i=0;i<length;i++){
+                    rrword[i]=rword.get(i);
+                    rrmean[i]=rmean.get(i);
+                }
+                intent.putExtra("word",rrword);
+                intent.putExtra("mean",rrmean);
+                startActivity(intent);
             }
         });
         switcher.setOnClickListener(new Button.OnClickListener(){
@@ -72,20 +98,22 @@ public class Test1 extends Activity {
                 testStart();
                 switcher.setEnabled(false);
                 Random random = new Random();
-                do{
-                    ran = random.nextInt(61);
-                    show.setText(word[ran]);}while(check[ran]==100);
+                do {
+                    ran = random.nextInt(40);
+                    show.setText(word[ran]);
+                } while (check[ran] == 100);
                 count++;
-                check[ran]=100;
-                if(count==20)
-                    show.setTextColor(RED);
+                check[ran] = 100;
+                if (count == 5) {
+                    retest.setEnabled(true);
+                    switcher.setEnabled(false);
+                }
             }
         });
         }
     public void testStart() {
         time = (TextView) findViewById(R.id.timer);
         timer_sec = 10;
-        count = 0;
         second = new TimerTask() {
             @Override
             public void run() {
@@ -111,7 +139,7 @@ public class Test1 extends Activity {
         Workbook workbook = null;
         Sheet sheet = null;
         try {
-            InputStream inputStream = getBaseContext().getResources().getAssets().open("first.xls");
+            InputStream inputStream = getBaseContext().getResources().getAssets().open(day);
             workbook = Workbook.getWorkbook(inputStream);
             sheet = workbook.getSheet(0);
             int MaxColumn = 2, RowStart = 0, RowEnd = sheet.getColumn(MaxColumn - 1).length-1, ColumnStart = 0, ColumnEnd = sheet.getRow(2).length-1;

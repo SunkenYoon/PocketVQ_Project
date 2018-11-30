@@ -14,6 +14,7 @@ import jxl.read.biff.BiffException;
 
 
 public class Vocab extends Activity {
+    String day;
     ListView listview ;
     ListAdapter adapter1;
     ListAdapter adapter2;
@@ -21,13 +22,17 @@ public class Vocab extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vocab);
+        Intent intent = getIntent();
+        day =intent.getStringExtra("day")+".xls";
         adapter1 = new ListAdapter();
         adapter2= new ListAdapter();
         final Button hidebutton = (Button)findViewById(R.id.hidebutton);
         final Button testbutton = (Button)findViewById(R.id.testbutton);
+        hidebutton.setText(day);
         listview = (ListView) findViewById(R.id.listview);
         listview.setAdapter(adapter1);
         listview.setAdapter(adapter2);
+        hidebutton.setText("뜻 가리기");
         Excel();
         hidebutton.setOnClickListener(new Button.OnClickListener(){
             int check = 0;
@@ -53,7 +58,9 @@ public class Vocab extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Test1.class);
+                intent.putExtra("day",day);
                 startActivity(intent);
+
 
 
             }
@@ -64,7 +71,7 @@ public class Vocab extends Activity {
         Sheet sheet = null;
         adapter1.clear();
         try {
-            InputStream inputStream = getBaseContext().getResources().getAssets().open("first.xls");
+            InputStream inputStream = getBaseContext().getResources().getAssets().open(day);
             workbook = Workbook.getWorkbook(inputStream);
             sheet = workbook.getSheet(0);
             int MaxColumn = 2, RowStart = 0, RowEnd = sheet.getColumn(MaxColumn - 1).length - 1, ColumnStart = 0, ColumnEnd = sheet.getRow(2).length - 1;
@@ -89,7 +96,7 @@ public class Vocab extends Activity {
         Sheet sheet = null;
         adapter2.clear();
         try {
-            InputStream inputStream = getBaseContext().getResources().getAssets().open("first.xls");
+            InputStream inputStream = getBaseContext().getResources().getAssets().open(day);
             workbook = Workbook.getWorkbook(inputStream);
             sheet = workbook.getSheet(0);
             int MaxColumn = 2, RowStart = 0, RowEnd = sheet.getColumn(MaxColumn - 1).length - 1, ColumnStart = 0, ColumnEnd = sheet.getRow(2).length - 1;

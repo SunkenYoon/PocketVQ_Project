@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.button);
         switch(view.getId()){
             case R.id.button:
-                Intent intent = new Intent(getApplicationContext(), Vocab.class);
+                Intent intent = new Intent(getApplicationContext(), VocabList.class);
                 startActivity(intent);
                 break;
             case R.id.button2:
