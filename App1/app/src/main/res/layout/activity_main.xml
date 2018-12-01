@@ -66,14 +66,20 @@
             android:text="공유 단어장"
             android:onClick="onButtonClick"/>
 
+        <TextView
+            android:id="@+id/txtFirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
         <Button
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20dp"
             android:layout_marginVertical="10dp"
-            android:text="사전"
-            android:onClick="onButtonClick"/>
+            android:onClick="onButtonClick"
+            android:text="번역기"
+            android:textSize="20dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -86,6 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:paddingTop="7dp"
+            android:textSize="15dp"
             android:text="정답 갯수: " />
 
         <TextView
@@ -93,9 +95,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
+            android:paddingTop="7dp"
+            android:textSize="15dp"
             android:layout_weight="1"
             android:text="0" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24dp"
+        android:paddingTop="7dp"
+        android:text="" />
+
     <Button
         android:id="@+id/retest"
         android:layout_width="wrap_content"

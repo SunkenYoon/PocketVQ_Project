@@ -33,6 +33,7 @@ public class Test2 extends Activity {
         final int check[] = new int[wordcount];
         final EditText useranswer = (EditText)findViewById(R.id.ruseranswer);
         final TextView answercount = (TextView)findViewById(R.id.ranswercount);
+        final TextView result = (TextView)findViewById(R.id.result2);
         final Button answer = (Button)findViewById(R.id.ranswer);
         final Button switcher = (Button)findViewById(R.id.rswitcher);
         final TextView show = (TextView)findViewById(R.id.rshow);
@@ -50,11 +51,16 @@ public class Test2 extends Activity {
                     second.cancel();
                     switcher.setEnabled(true);
                     if(mean[ran].contains(useranswer.getText().toString())){
+                        Toast.makeText(getApplicationContext(),"정답!",Toast.LENGTH_SHORT).show();
                         correct++;
                         answercount.setText(""+correct);
                     }
+                    else{
+                        Toast.makeText(getApplicationContext(),"오답ㅠㅠ",Toast.LENGTH_SHORT).show();
+                    }
                     if(count==word.length)
                         switcher.setEnabled(false);
+                        result.setText("테스트 종료!");
                 }
             }
         });

@@ -44,6 +44,7 @@ public class Test1 extends Activity {
         final Button answer = (Button)findViewById(R.id.answer);
         final Button retest = (Button)findViewById(R.id.retest);
         final Button switcher = (Button)findViewById(R.id.switcher);
+        final TextView result = (TextView)findViewById(R.id.result);
         final TextView show = (TextView)findViewById(R.id.show);
         retest.setEnabled(false);
         Intent intent = getIntent();
@@ -58,17 +59,19 @@ public class Test1 extends Activity {
             @Override
             public void onClick(View v) {
                 if(useranswer.getText().toString().length() == 0){
-                    Toast.makeText(getApplicationContext(),"패스는 안돼요ㅠㅠ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"패스는 안돼요ㅠㅠ", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     second.cancel();
                     switcher.setEnabled(true);
+                    Toast.makeText(getApplicationContext(),"정답!",Toast.LENGTH_SHORT).show();
                      if(mean[ran].contains(useranswer.getText().toString())){
                          correct++;
                          answercount.setText(""+correct);
                      }
                      else
                      {
+                         Toast.makeText(getApplicationContext(),"오답ㅠㅠ",Toast.LENGTH_SHORT).show();
                          rword.add(word[ran]);
                          rmean.add(mean[ran]);
                      }
@@ -107,6 +110,7 @@ public class Test1 extends Activity {
                 if (count == 5) {
                     retest.setEnabled(true);
                     switcher.setEnabled(false);
+                    result.setText("테스트 종료!");
                 }
             }
         });
