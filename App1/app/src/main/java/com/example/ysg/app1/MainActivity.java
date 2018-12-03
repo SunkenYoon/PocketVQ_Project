@@ -5,16 +5,21 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     TextView txtFirst;
+    ImageView profile;
     String name;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -22,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = getIntent();
+        profile = (ImageView)findViewById(R.id.profile);
+        profile.setImageResource(R.drawable.defaults);
+        profile.setOnClickListener(profileListener);
         txtFirst = (TextView)findViewById(R.id.txtFirst);
         pref = getSharedPreferences("IsFirst" , 0);
         editor = pref.edit();
@@ -45,8 +54,19 @@ public class MainActivity extends AppCompatActivity {
             builder.show();
         }
         txtFirst.setText(pref.getString("name","noname"));
+        String image =  pref.getString("image", "");
+        Bitmap bitmap = StringToBitMap(image);
+        profile.setImageBitmap(bitmap);
+
 
     }
+    Button.OnClickListener profileListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),Profile.class);
+            startActivity(intent);
+        }
+    };
 
     public void onButtonClick(View view){
         Button button = (Button) findViewById(R.id.button);
@@ -65,4 +85,19 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
+    }
+    @Override public void onBackPressed() {
+//TODO: 한번 누르면 안내, 두번 누르면 종료/
+    }
+
+
 }

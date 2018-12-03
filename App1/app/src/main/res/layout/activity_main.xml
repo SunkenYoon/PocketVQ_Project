@@ -21,9 +21,9 @@
 
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:id="@+id/profile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:background="@drawable/border"
             android:padding="5dp"

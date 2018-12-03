@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.example.ysg.app1">
-        <uses-permission android:name="android.permission.INTERNET">
+        <uses-permission android:name="android.permission.INTERNET">    </uses-permission>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">    </uses-permission>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE">
         </uses-permission>
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,5 +28,15 @@
         <activity android:name=".Test1" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name="Test2" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name="VocabList" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name="Profile" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.ysg.app1.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 </manifest>
