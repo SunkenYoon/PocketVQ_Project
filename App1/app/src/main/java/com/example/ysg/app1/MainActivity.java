@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             });
             builder.show();
         }
-        txtFirst.setText(pref.getString("name","noname"));
+        txtFirst.setText(pref.getString("name","noName"));
         String image =  pref.getString("image", "");
         Bitmap bitmap = StringToBitMap(image);
         profile.setImageBitmap(bitmap);

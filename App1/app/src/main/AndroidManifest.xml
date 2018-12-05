@@ -3,8 +3,7 @@
         package="com.example.ysg.app1">
         <uses-permission android:name="android.permission.INTERNET">    </uses-permission>
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">    </uses-permission>
-            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE">
-        </uses-permission>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"> </uses-permission>
 
     <application
 
@@ -29,6 +28,7 @@
         <activity android:name="Test2" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name="VocabList" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name="Profile" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".SharedList" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.ysg.app1.provider"

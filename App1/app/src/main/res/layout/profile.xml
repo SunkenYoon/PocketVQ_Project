@@ -50,14 +50,6 @@
                     android:text="기본 사진" />
 
                 <Button
-                    android:id="@+id/camera"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="카메라" />
-
-                <Button
                     android:id="@+id/gallery_pic"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
