@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2b2b2b"
+    android:background="@drawable/b"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:background="@drawable/border"
+            android:background="@drawable/ic_c"
             android:padding="5dp"
             app:srcCompat="@drawable/defaults" />
 
@@ -65,12 +65,6 @@
             android:textSize="20dp"
             android:text="공유 단어장"
             android:onClick="onButtonClick"/>
-
-        <TextView
-            android:id="@+id/txtFirst"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
 
         <Button
             android:id="@+id/button3"

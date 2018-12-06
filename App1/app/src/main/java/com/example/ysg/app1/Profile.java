@@ -89,7 +89,6 @@ public class Profile extends AppCompatActivity {
             FilePathUri = data.getData();
             try {
                 bitmaps = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
-                user_image.setImageBitmap(bitmaps);
                 Intent cropIntent = new Intent("com.android.camera.action.CROP");
                 cropIntent.setDataAndType(FilePathUri, "image/*");
                 cropIntent.putExtra("crop", "true");
@@ -117,6 +116,8 @@ public class Profile extends AppCompatActivity {
                 f.delete();
 
         }
+        else
+            Toast.makeText(this,"취소되었습니다.",Toast.LENGTH_SHORT);
     }
     public String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos=new  ByteArrayOutputStream();

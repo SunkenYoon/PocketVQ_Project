@@ -30,7 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-
+import android.content.Context;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
@@ -42,8 +43,6 @@ public class Shared extends AppCompatActivity {
     String Storage_Path = "All_Image_Uploads/";
     String user;
     String userName;
-    String image;
-    Bitmap userImage;
     // Root Database Name for Firebase Database.
     String Database_Path = "All_Image_Uploads_Database";
     // Creating button.
@@ -55,6 +54,8 @@ public class Shared extends AppCompatActivity {
     EditText userMeanE;
     String userWord;
     String userMean;
+    String suserimage;
+    Bitmap userimage;
 
     // Creating URI.
     Uri FilePathUri;
@@ -80,12 +81,10 @@ public class Shared extends AppCompatActivity {
         userWordE = (EditText) findViewById(R.id.user_word);
         userMeanE =  (EditText)findViewById(R.id.user_mean);
         userName= pref.getString("name","noName");
-        image =  pref.getString("image", "");
-        userImage = StringToBitMap(image);
-        user_uri = pref.getString("uri","");
-        FilePathUri=Uri.parse(user_uri);
-        ImageView images = (ImageView)findViewById(R.id.images);
-        images.setImageURI(FilePathUri);
+        suserimage=pref.getString("image","");
+        userimage= StringToBitMap(suserimage);
+        FilePathUri = getImageUri(this,userimage);
+        user_uri=FilePathUri.toString();
         progressDialog = new ProgressDialog(Shared.this);
 
         UploadButton.setOnClickListener(new View.OnClickListener() {
@@ -126,8 +125,12 @@ public class Shared extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
 
     }
-
-
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
     public Bitmap StringToBitMap(String encodedString){
         try{
             byte [] encodeByte=Base64.decode(encodedString,Base64.DEFAULT);
@@ -167,6 +170,7 @@ public class Shared extends AppCompatActivity {
         }
 
     }
+
 
 
 }

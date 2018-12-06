@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    TextView txtFirst;
     ImageView profile;
     String name;
     SharedPreferences pref;
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         profile = (ImageView)findViewById(R.id.profile);
         profile.setImageResource(R.drawable.defaults);
         profile.setOnClickListener(profileListener);
-        txtFirst = (TextView)findViewById(R.id.txtFirst);
         pref = getSharedPreferences("IsFirst" , 0);
         editor = pref.edit();
         boolean isFirst = pref.getBoolean("isFirst", false);
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             });
             builder.show();
         }
-        txtFirst.setText(pref.getString("name","noName"));
         String image =  pref.getString("image", "");
         Bitmap bitmap = StringToBitMap(image);
         profile.setImageBitmap(bitmap);

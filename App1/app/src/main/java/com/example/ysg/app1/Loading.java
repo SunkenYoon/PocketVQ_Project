@@ -18,7 +18,7 @@ public class Loading extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading);
         mytv=(TextView)findViewById(R.id.textView);
-        myfont=Typeface.createFromAsset(this.getAssets(),"font/font.ttf");
+        myfont=Typeface.createFromAsset(this.getAssets(),"font/font3.ttf");
         mytv.setTypeface(myfont);
 
         Handler handler = new Handler();
