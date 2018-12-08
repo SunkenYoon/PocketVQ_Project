@@ -2,42 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
+    android:background="@drawable/k"
     android:layout_height="fill_parent">
 
     <TextView
         android:id="@+id/textview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="130dp"
+        android:textColor="#000000"
         android:gravity="center"
         android:text="단어를 등록하세요!"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textSize="30dp" />
 
-    <EditText
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/user_word"
-    android:layout_marginTop="20dp"
-    android:gravity="center"/>
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/user_mean"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="242dp"
+        android:layout_margin="20dp"
         android:layout_marginTop="20dp"
-        android:gravity="center"/>
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ButtonUploadImage"
-        android:layout_marginTop="20dp"
-        android:text="Upload image to Firebase Storage"/>
+        android:background="@drawable/sborder"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/user_word"
+            android:layout_marginHorizontal="15dp"
+            android:hint="영어"
+            android:textColorHint="#57433a"
+            android:textColor="#57433a"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center" />
+
+        <EditText
+            android:id="@+id/user_mean"
+            android:layout_width="fill_parent"
+            android:layout_marginHorizontal="15dp"
+            android:textColor="#57433a"
+            android:layout_height="wrap_content"
+            android:hint="한글"
+            android:textColorHint="#57433a"
+            android:layout_marginTop="20dp"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/ButtonUploadImage"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/white"
+            android:text="단어 등록하기"
+            android:textColor="#57433a"
+            android:textSize="19dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/userlist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="보기" />
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="50dp"
+        android:background="@drawable/white"
+        android:text="공유된 단어장 보기"
+        android:textSize="19dp"
+        android:textColor="#57433a" />
 
 
 </LinearLayout>

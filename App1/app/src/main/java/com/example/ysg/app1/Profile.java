@@ -1,9 +1,12 @@
 package com.example.ysg.app1;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,8 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.graphics.Bitmap;
+import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
@@ -35,15 +41,21 @@ public class Profile extends AppCompatActivity {
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Uri FilePathUri;
+    Typeface myfont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
         user_image = (ImageView)findViewById(R.id.user_image);
-        Button default_pic = (Button)findViewById(R.id.default_pic);
+        Button changeName = (Button)findViewById(R.id.changeName);
         Button gallery_pic = (Button)findViewById(R.id.gallery_pic);
         Button submit = (Button)findViewById(R.id.pic_submit);
+        TextView profileword = (TextView)findViewById(R.id.profileword);
+        user_image.setImageResource(R.drawable.defaults);
+        myfont=Typeface.createFromAsset(this.getAssets(),"font/font4.ttf");
+        submit.setTypeface(myfont);
+        profileword.setTypeface(myfont);
         pref = getSharedPreferences("IsFirst" , 0);
         editor = pref.edit();
         int permissonCheck= ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -55,10 +67,24 @@ public class Profile extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{ android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
 
         }
-        default_pic.setOnClickListener(new Button.OnClickListener(){
+        changeName.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                user_image.setImageResource(R.drawable.defaults);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Profile.this);
+                builder.setTitle("닉네임을 설정하세요!");
+                builder.setMessage("ㅇㅇ");
+                final EditText namevalue = new EditText(Profile.this);
+                builder.setView(namevalue);
+                builder.setPositiveButton("제출", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        editor.putString("name", namevalue.getText().toString());
+                        dialog.dismiss();
+                        editor.commit();
+                    }
+                });
+                builder.show();
+
             }
         });
         gallery_pic.setOnClickListener(new Button.OnClickListener(){
@@ -74,11 +100,16 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                String image = BitMapToString(photo);
-                editor.putString("image",image.toString());
-                editor.putString("uri",FilePathUri.toString());
-                editor.commit();
-                startActivity(intent);
+                if(photo==null){
+                    startActivity(intent);
+                }
+                else {
+                    String image = BitMapToString(photo);
+                    editor.putString("image", image.toString());
+                    editor.putString("uri", FilePathUri.toString());
+                    editor.commit();
+                    startActivity(intent);
+                }
             }
         });
 

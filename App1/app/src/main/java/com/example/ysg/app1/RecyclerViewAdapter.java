@@ -1,6 +1,7 @@
 package com.example.ysg.app1;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,35 +18,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     List<Shared.User> MainImageUploadInfoList;
 
     public RecyclerViewAdapter(Context context, List<Shared.User> TempList) {
-
         this.MainImageUploadInfoList = TempList;
-
         this.context = context;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.customsharedlist, parent, false);
-
         ViewHolder viewHolder = new ViewHolder(view);
-
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Shared.User UploadInfo = MainImageUploadInfoList.get(position);
-
         holder.nameView.setText(UploadInfo.getUserName());
         holder.wordView.setText(UploadInfo.getWord());
         holder.meanView.setText(UploadInfo.getMean());
-        //Loading image from Glide library.
         Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-
         return MainImageUploadInfoList.size();
     }
 
@@ -58,11 +51,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-
+            Typeface myfont=Typeface.createFromAsset(context.getAssets(),"font/font4.ttf");
             imageView = (ImageView) itemView.findViewById(R.id.sharedUserImage);
             nameView = (TextView)itemView.findViewById(R.id.sharedUserName);
             wordView=(TextView)itemView.findViewById(R.id.sharedUserWord);
             meanView=(TextView)itemView.findViewById(R.id.sharedUserMean);
+            nameView.setTypeface(myfont);
+            wordView.setTypeface(myfont);
+            meanView.setTypeface(myfont);
         }
     }
 }

@@ -1,7 +1,10 @@
 package com.example.ysg.app1;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Pattern;
+
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -34,23 +39,71 @@ public class Test1 extends Activity {
     List<String> rmean = new ArrayList<String>();
     TimerTask second;
     TextView time;
+    TextView showanswer;
+    Button switcher;
+    Button answer;
+    Button retest;
+    String num;
     final Handler handler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test1);
+        Typeface myfont1=Typeface.createFromAsset(this.getAssets(),"font/font7.ttf");
+        Typeface myfont2=Typeface.createFromAsset(this.getAssets(),"font/font4.ttf");
         final EditText useranswer = (EditText)findViewById(R.id.useranswer);
         final TextView answercount = (TextView)findViewById(R.id.answercount);
-        final Button answer = (Button)findViewById(R.id.answer);
-        final Button retest = (Button)findViewById(R.id.retest);
-        final Button switcher = (Button)findViewById(R.id.switcher);
-        final TextView result = (TextView)findViewById(R.id.result);
+        final TextView left = (TextView)findViewById(R.id.textView5);
+        answer = (Button)findViewById(R.id.answer);
+        retest = (Button)findViewById(R.id.retest);
+        switcher = (Button)findViewById(R.id.switcher);
         final TextView show = (TextView)findViewById(R.id.show);
+        time = (TextView) findViewById(R.id.timer);
+        final TextView text = (TextView)findViewById(R.id.textView2);
+        showanswer =(TextView)findViewById(R.id.showanswer);
+        retest.setVisibility(View.INVISIBLE);
+        answercount.setTypeface(myfont2);
+        left.setTypeface(myfont2);
+        retest.setTypeface(myfont2);
+        show.setTypeface(myfont1);
+        time.setTypeface(myfont2);
+        text.setTypeface(myfont2);
+        answer.setTypeface(myfont2);
+        switcher.setTypeface(myfont2);
+        showanswer.setTypeface(myfont2);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("문제 수를 설정하세요!");
+        builder.setMessage("");
+        final EditText askNum = new EditText(Test1.this);
+        builder.setView(askNum);
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (askNum.getText().toString().length() == 0) {
+                    Toast.makeText(getApplicationContext(), "1이상의 숫자를 입력하세요.", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    num = askNum.getText().toString();
+                    if (isNumber(num) == false) {
+                        Toast.makeText(getApplicationContext(), "1이상의 숫자를 입력하세요.", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else if (Integer.parseInt(num) > 0)
+                        dialog.dismiss();
+                    else {
+                        Toast.makeText(getApplicationContext(), "1이상의 숫자를 입력하세요.", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                }
+            }
+
+        });
+        builder.show();
         retest.setEnabled(false);
+        answer.setEnabled(false);
+        switcher.setText("시험 시작!");
         Intent intent = getIntent();
         day =intent.getStringExtra("day");
         Excel();
-
 
         for(int j=0;j<40;j++){
             check[j]=j;
@@ -58,23 +111,34 @@ public class Test1 extends Activity {
         answer.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
+                switcher.setText("다음 문제");
                 if(useranswer.getText().toString().length() == 0){
                     Toast.makeText(getApplicationContext(),"패스는 안돼요ㅠㅠ", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     second.cancel();
                     switcher.setEnabled(true);
-                    Toast.makeText(getApplicationContext(),"정답!",Toast.LENGTH_SHORT).show();
+                    answer.setEnabled(false);
                      if(mean[ran].contains(useranswer.getText().toString())){
+                         Toast.makeText(getApplicationContext(),"정답!",Toast.LENGTH_SHORT).show();
                          correct++;
                          answercount.setText(""+correct);
+                         showanswer.setText(mean[ran]);
                      }
                      else
                      {
                          Toast.makeText(getApplicationContext(),"오답ㅠㅠ",Toast.LENGTH_SHORT).show();
                          rword.add(word[ran]);
                          rmean.add(mean[ran]);
+                         showanswer.setText(mean[ran]);
                      }
+                    if (count == Integer.parseInt(num)) {
+                        retest.setEnabled(true);
+                        retest.setVisibility(View.VISIBLE);
+                        switcher.setEnabled(false);
+                        answer.setEnabled(false);
+                        Toast.makeText(getApplicationContext(),"테스트 종료!",Toast.LENGTH_LONG).show();
+                    }
             }
             }
         });
@@ -97,9 +161,12 @@ public class Test1 extends Activity {
         switcher.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
+                switcher.setText("다음 문제");
                 useranswer.setText(null);
+                showanswer.setText(null);
                 testStart();
                 switcher.setEnabled(false);
+                answer.setEnabled(true);
                 Random random = new Random();
                 do {
                     ran = random.nextInt(40);
@@ -107,17 +174,11 @@ public class Test1 extends Activity {
                 } while (check[ran] == 100);
                 count++;
                 check[ran] = 100;
-                if (count == 5) {
-                    retest.setEnabled(true);
-                    switcher.setEnabled(false);
-                    result.setText("테스트 종료!");
-                }
             }
         });
         }
     public void testStart() {
-        time = (TextView) findViewById(R.id.timer);
-        timer_sec = 10;
+        timer_sec = 11;
         second = new TimerTask() {
             @Override
             public void run() {
@@ -130,10 +191,23 @@ public class Test1 extends Activity {
     protected void Update() {
         Runnable updater = new Runnable() {
             public void run() {
-                time.setText(timer_sec + "초");
                 timer_sec--;
+                time.setText(timer_sec + "초");
                 if(timer_sec == 0){
                     second.cancel();
+                    switcher.setEnabled(true);
+                    answer.setEnabled(false);
+                    Toast.makeText(getApplicationContext(),"오답ㅠㅠ",Toast.LENGTH_SHORT).show();
+                    rword.add(word[ran]);
+                    rmean.add(mean[ran]);
+                    showanswer.setText(mean[ran]);
+                    if (count == Integer.parseInt(num)) {
+                        retest.setEnabled(true);
+                        retest.setVisibility(View.VISIBLE);
+                        switcher.setEnabled(false);
+                        answer.setEnabled(false);
+                        Toast.makeText(getApplicationContext(),"테스트 종료!",Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         };
@@ -159,5 +233,14 @@ public class Test1 extends Activity {
             workbook.close();
         }
     }
-
+    public static boolean isNumber(String str) {
+        boolean check = true;
+        for(int i = 0; i < str.length(); i++) {
+            if(!Character.isDigit(str.charAt(i))) {
+                check = false;
+                break;
+            }
+        }
+        return check;
+    }
 }

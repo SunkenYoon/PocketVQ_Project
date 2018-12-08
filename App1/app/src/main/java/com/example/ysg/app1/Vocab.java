@@ -2,6 +2,7 @@ package com.example.ysg.app1;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -25,12 +26,14 @@ public class Vocab extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vocab);
         Intent intent = getIntent();
+        Typeface myfont=Typeface.createFromAsset(this.getAssets(),"font/font4.ttf");
         day =intent.getStringExtra("day")+".xls";
         adapter1 = new ListAdapter();
         adapter2= new ListAdapter();
         final Button hidebutton = (Button)findViewById(R.id.hidebutton);
         final Button testbutton = (Button)findViewById(R.id.testbutton);
-        hidebutton.setText(day);
+        hidebutton.setTypeface(myfont);
+        testbutton.setTypeface(myfont);
         listview = (ListView) findViewById(R.id.listview);
         listview.setAdapter(adapter1);
         listview.setAdapter(adapter2);

@@ -1,16 +1,19 @@
 package com.example.ysg.app1;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import org.json.JSONObject;
 
@@ -24,9 +27,14 @@ import java.net.URLEncoder;
 
 public class Dic extends AppCompatActivity {
     String a,b,c,d,usertext;
+    Boolean Koreng = true;
     TextView show;
+    String source = "ko";
+    String target = "en";
     EditText get;
     Button submit;
+    ToggleButton changer;
+    Typeface myfont;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,25 @@ public class Dic extends AppCompatActivity {
         show = (TextView)findViewById(R.id.translated_text);
         get = (EditText)findViewById(R.id.get_text);
         submit = (Button)findViewById(R.id.translateButton);
+        changer = (ToggleButton)findViewById(R.id.changer);
+        myfont = Typeface.createFromAsset(this.getAssets(),"font/font4.ttf");
+        submit.setTypeface(myfont);
+        changer.setTypeface(myfont);
+        changer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked==true){
+                    changer.setTextOn("영>한");
+                    source = "en";
+                    target = "ko";
+                }
+                else{
+                    changer.setTextOff("한>영");
+                    source = "ko";
+                    target = "en";
+                }
+            }
+        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +90,7 @@ private class dicThread extends Thread{
             con.setRequestProperty("X-Naver-Client-Id", clientId);
             con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
             // post request
-            String postParams = "source=ko&target=en&text=" + text;
+            String postParams = "source="+source+"&target="+target+"&text=" + text;
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
             wr.writeBytes(postParams);
