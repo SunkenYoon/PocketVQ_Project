@@ -14,7 +14,7 @@ If you found any bugs, please report here : myysk0529@gmail.com. Thank you.
 ## HOW TO USE
 Open Android Studio > VCS > Checkout from Version Control > Git and paste this URL.
 
- 최종보고서 링크: https://drive.google.com/open?id=1T6uir42UGn0I0Se6yU50fNIrRIEf1oua
+ 최종보고서 링크: https://drive.google.com/open?id=1N8H7M5BkC0d8M1FWZ3l8qS6z0GkTFBkW
  
  시연영상 링크: https://drive.google.com/open?id=1jqJt8WE48Ri_PQAfM1a-PC0_8iNfsTDZ
 
