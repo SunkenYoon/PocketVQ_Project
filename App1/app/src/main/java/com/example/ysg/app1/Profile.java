@@ -1,6 +1,7 @@
 package com.example.ysg.app1;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
@@ -99,16 +101,16 @@ public class Profile extends AppCompatActivity {
         submit.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 if(photo==null){
-                    startActivity(intent);
+                    finish();
                 }
                 else {
                     String image = BitMapToString(photo);
                     editor.putString("image", image.toString());
                     editor.putString("uri", FilePathUri.toString());
                     editor.commit();
-                    startActivity(intent);
+                    System.exit(0);
+
                 }
             }
         });

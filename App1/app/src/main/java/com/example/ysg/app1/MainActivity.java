@@ -85,13 +85,14 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("isFirst", true);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("닉네임을 설정하세요!");
-            builder.setMessage("ㅇㅇ");
+            builder.setMessage("프로필을 설정해야 공유 단어장을 이용할 수 있습니다.");
             final EditText namevalue = new EditText(MainActivity.this);
             builder.setView(namevalue);
             builder.setPositiveButton("제출", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     editor.putString("name", namevalue.getText().toString());
+                    username.setText(namevalue.getText().toString()+"의 ");
                     dialog.dismiss();
                     editor.commit();
                 }
