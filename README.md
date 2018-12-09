@@ -8,3 +8,9 @@ This application provides various functions for memorizing English vocabularies.
 4. Translator : Includes Papago Translation API, working for Kor > Eng and Eng > Kor 
 
 If you found any bugs, please report here : myysk0529@gmail.com. Thank you.
+
+---
+
+## HOW TO USE
+Open Android Studio > VCS > Checkout from Version Control > Git and paste this URL.
+
